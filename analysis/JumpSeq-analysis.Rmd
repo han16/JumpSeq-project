@@ -6,24 +6,6 @@ output: html_document
 fig_caption: yes
 ---
 
-<!-- The file analysis/chunks.R contains chunks that define default settings
-shared across the workflowr files. -->
-```{r read-chunk, include=FALSE, cache=FALSE}
-knitr::read_chunk("chunks.R")
-```
-
-<!-- Update knitr chunk options -->
-```{r knitr-opts-chunk, include=FALSE}
-```
-
-<!-- Insert the date the file was last updated -->
-```{r last-updated, echo=FALSE, results='asis'}
-```
-
-<!-- Insert the code version (Git commit SHA1) if Git repository exists and R
- package git2r is installed -->
-```{r code-version, echo=FALSE, results='asis'}
-```
 
 <!-- Add your analysis here -->
 
@@ -71,15 +53,19 @@ Table: Actutrally number of reads from each downsample with ratios of  $40\%, 50
 #### Reads distribution 
 Windows with reads greater than 10 are put together into category 11. 
 ```{r, echo=T}
+save("../../Figure")
 reads.plus=matrix(nrow=11, ncol=1)
 rownames(reads.plus)=c(seq(1,10), ">10"); reads.plus[,1]=c(9371352, 2190106, 772609, 334745, 162092, 84161, 45907, 25962, 15529, 9208, 16960)
 barplot(reads.plus[,1]/sum(reads.plus[,1]), ylim=c(0,1), ylab="Freq", main="Frequency of peak windows (40% reads plus)", xlab="Number of reads")
+dev.off()
 ```
 
 ```{r, echo=T}
+pdf("../../Figure/Window_Freq_48ng_plus_combine.PDF")
 reads.plus=matrix(nrow=11, ncol=1)
 rownames(reads.plus)=c(seq(1,10), ">10"); reads.plus[,1]=c(14075383, 4568606, 2003109, 1078497, 642833, 411173, 274861, 188434, 133511, 95662, 300518)
 barplot(reads.plus[,1]/sum(reads.plus[,1]), ylim=c(0,1), ylab="Freq", main="Frequency of peak windows (100% reads plus)", xlab="Number of reads")
+dev.off()
 ```
 
 For each down sample, call base level coverage, call peak windows and count how many peak windows at specified FDR level. 
@@ -964,9 +950,11 @@ barplot(count[,1], beside=F, col=c("red", "darkblue"), legend=c("Observed", "Exp
 
 ### reads distribution
 ```{r, echo=T}
+pdf("../../Figure/Window_Freq_6ng_minus_FDR0.05.PDF")
 reads=matrix(nrow=11, ncol=1)
 rownames(reads)=c(seq(1,10), ">10"); reads[,1]=c(473607, 8448, 370, 60, 30, 13, 8, 7, 5, 6, 94)
 barplot(reads[,1]/sum(reads[,1]), ylim=c(0,1), ylab="Freq", main="Frequency of called peak windows at FDR0.05 (rep1 minus)", xlab="Number of reads")
+dev.off()
 ```
 
 There are 5 6ng 5hmC replicates. 
@@ -1078,9 +1066,11 @@ axis(1, at=seq(1,5), labels=axis.labels)
 
 ### Reads distribution 
 ```{r, echo=T}
+pdf("../../Figure/Window_Freq_2.4ng_plus_rep1.PDF")
 reads.plus=matrix(nrow=11, ncol=1)
 rownames(reads.plus)=c(seq(1,10), ">10"); reads.plus[,1]=c(253804, 3709, 159, 31, 16, 11, 1, 6, 7, 4, 61)
 barplot(reads.plus[,1]/sum(reads.plus[,1]), ylim=c(0,1), ylab="Freq", main="Frequency of windows with reads (rep1 plus)", xlab="Number of reads")
+dev.off()
 ```
 ```{r, echo=T}
 reads.plus=matrix(nrow=11, ncol=1)
